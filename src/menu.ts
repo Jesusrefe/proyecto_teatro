@@ -1,7 +1,8 @@
 import { Teatro } from './teatro';
 
 export function mostrarMenu(): void {
-    // console.clear();
+    
+    console.clear();
     console.log('TEATRO LA BOMBILLA DE DON BLAS');
     console.log('------------------------');
     console.log("1. Ver la programación actual");
@@ -27,26 +28,32 @@ export async function gestionarOpcion(
     else if(opcion === '2') {
         console.clear();
         teatro.mostrarLocalidades();
-        await rlp.questionAsync('');   
+        await rlp.questionAsync('');
     }
     else if(opcion === '3') {
         console.clear();
         teatro.mostrarLocalidadesOcupadas();
-        await rlp.questionAsync('');    
+        await rlp.questionAsync('');   
     }
     else if(opcion === '4') {
         console.clear();
-        await teatro.venderLocalidad(rlp);
-        await rlp.questionAsync('');     
+        await teatro.venderLocalidad(rlp)
+        await rlp.questionAsync('');   
     }
     else if(opcion === '5') {
-        console.log('Opción 5');    
+        console.clear();
+        await teatro.cancelarLocalidad(rlp);
+        await rlp.questionAsync('');       
     }
     else if(opcion === '6') {
-        console.log('Opción 6');    
+        console.clear();
+        await teatro.consultarLocalidad(rlp);
+        await rlp.questionAsync(''); 
     }
     else if(opcion === '7') {
-        console.log('Opción 7');    
+        console.clear();
+        teatro.calcularRecaudacion();
+        await rlp.questionAsync('');   
     }
     else if(opcion === '8') {
         console.log('Opción 8');    

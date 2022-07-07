@@ -9,8 +9,8 @@ export class Teatro {
     constructor() {
         this.localidades = [];
 
-        for(let j=0; j<5; j++) { //j representa a la fila
-            for(let i=0; i<10; i++) { // i representa columna
+        for (let j = 0; j < 5; j++) { //j representa a la fila
+            for (let i = 0; i < 10; i++) { // i representa columna
                 this.localidades.push({
                     columna: i,
                     fila: j,
@@ -18,16 +18,16 @@ export class Teatro {
                     nombreReserva: undefined,
                     edadReserva: undefined,
                     telefonoReserva: undefined
-                });        
+                });
             }
-        }        
+        }
     }
-   
+
     // opción 1
     verProgramacionActual() {
-        console.log('Hoy rep❤resentamos La cena de los idiotas, género: Comedia, Duración: 95');    
+        console.log('Hoy representamos La cena de los idiotas, género: Comedia, Duración: 95');
         console.log('En C/Sol 45, local de 300 metros, con 2 accesos');
-        console.log('Precio: 30.0');                    
+        console.log('Precio: 30.0');
     }
 
     // opción 2
@@ -38,27 +38,27 @@ export class Teatro {
         // va cambiando su valor desde 0 hasta 49 (ambos inclusive)
         let contador = 0;
 
-        for(let j=0; j<5; j++) {
+        for (let j = 0; j < 5; j++) {
 
             let msg = '';
 
-            for(let i=0; i<10; i++) {
+            for (let i = 0; i < 10; i++) {
                 const localidad = this.localidades[contador];
                 const fila = localidad.fila;
                 const columna = localidad.columna;
-                const ocupadaOLibre = (localidad.estaOcupada) 
+                const ocupadaOLibre = (localidad.estaOcupada)
                     ? 'O'  // O -> Ocupada
                     : 'L';  // L -> Libre
 
-                msg += `${fila}.${columna} ${ocupadaOLibre} `; 
-                contador++;          
+                msg += `${fila}.${columna} ${ocupadaOLibre} `;
+                contador++;
             }
 
             console.log(msg);
             console.log('----------------------------');
-        }     
-        
-        
+        }
+
+
 
     }
 
@@ -68,9 +68,9 @@ export class Teatro {
         const localidadesOcupadas = this.localidades.filter(
             localidad => localidad.estaOcupada);
 
-        if(localidadesOcupadas.length === 0) {
-            console.log('No hay localidades ocupadas'); 
-            return;          
+        if (localidadesOcupadas.length === 0) {
+            console.log('No hay localidades ocupadas');
+            return;
         }
 
         // en este punto del programa, sabemos que hay al menos una localidad ocupada
@@ -78,7 +78,7 @@ export class Teatro {
 
             const tipo = obtenerTipo(localidad.edadReserva);
 
-            console.log(`${localidad.fila}.${localidad.columna} ${localidad.nombreReserva}, tlf: ${localidad.telefonoReserva}, Tipo: ${tipo}`);            
+            console.log(`${localidad.fila}.${localidad.columna} ${localidad.nombreReserva}, tlf: ${localidad.telefonoReserva}, Tipo: ${tipo}`);
         }
     }
 
@@ -91,7 +91,7 @@ export class Teatro {
 
         // validación de la fila
         const filaNumero = Number(fila);
-        if((filaNumero < 0) || (filaNumero > 4)) {
+        if ((filaNumero < 0) || (filaNumero > 4)) {
             console.log('No existe la fila');
             return;
         }
@@ -102,7 +102,7 @@ export class Teatro {
 
         // validación de la columna
         const columnaNumero = +columna;
-        if((columnaNumero < 0) || (columnaNumero > 9)) {
+        if ((columnaNumero < 0) || (columnaNumero > 9)) {
             console.log('No existe la butaca');
             return;
         }
@@ -110,11 +110,11 @@ export class Teatro {
         // solicitamos el nombre de la persona que reserva la localidad
         const nombre: string = await rlp.questionAsync(
             '¿Cómo se llama?\n');
-        
+
         // validación del nombre
-        if(nombre.length < 3) {
+        if (nombre.length < 3) {
             console.log('Introduce al menos tres caracteres');
-            return;            
+            return;
         }
 
         // solicitamos el teléfono de la persona que reserva la localidad
@@ -123,11 +123,11 @@ export class Teatro {
 
         // validación del teléfono (debe ser un número y tener exactamente 9 caracteres)
         const telefonoNumero = +telefono;
-        if(isNaN(telefonoNumero)) {
+        if (isNaN(telefonoNumero)) {
             console.log('El teléfono no es un número');
-            return;            
+            return;
         }
-        if(telefono.length !== 9) {
+        if (telefono.length !== 9) {
             console.log('El teléfono no es válido');
             return;
         }
@@ -137,8 +137,8 @@ export class Teatro {
             '¿Cuántos años tiene? (0-120)\n');
 
         const edadNumero = +edad;
-        if((edadNumero < 0) || (edadNumero > 120)) {
-            console.log('Edad incorrecta');            
+        if ((edadNumero < 0) || (edadNumero > 120)) {
+            console.log('Edad incorrecta');
             return;
         }
 
@@ -146,11 +146,11 @@ export class Teatro {
         // verificamos si la localidad que quiere reservar la persona está ocupada o no
         const localidadAReservar = this.localidades.find(
             localidad => (
-                (localidad.fila === filaNumero) && 
+                (localidad.fila === filaNumero) &&
                 (localidad.columna === columnaNumero)
             )
         )
-        if(localidadAReservar.estaOcupada) {
+        if (localidadAReservar.estaOcupada) {
             console.log('Localidad no está libre');
             return;
         }
@@ -164,7 +164,109 @@ export class Teatro {
         const tipo = obtenerTipo(edadNumero);
         const precioEntrada = obtenerPrecioEntrada(tipo);
 
-        console.log(`Se ha vendido la localidad ${fila}.${columna}a ${nombre} por ${precioEntrada} euros`);
-        
+        console.log(`Se ha vendido la localidad ${fila}.${columna} a ${nombre} por ${precioEntrada} euros`);
+
+    }
+
+    // opción 5
+    async cancelarLocalidad(rlp) {
+
+        // solicitamos la fila
+        const fila: string = await rlp.questionAsync(
+            '¿Fila (0-4)?\n');
+
+        // validación de la fila
+        const filaNumero = Number(fila);
+        if ((filaNumero < 0) || (filaNumero > 4)) {
+            console.log('No existe la fila');
+            return;
+        }
+
+        // solicitamos la columna
+        const columna: string = await rlp.questionAsync(
+            '¿Butaca (0-9)?\n');
+
+        // validación de la columna
+        const columnaNumero = +columna;
+        if ((columnaNumero < 0) || (columnaNumero > 9)) {
+            console.log('No existe la butaca');
+            return;
+        }
+
+        // buscar la localidad que tenga la fila y la columna introducidas por el usuario
+        const localidadEncontrada =
+            this.localidades.find(localidad =>
+                (filaNumero === localidad.fila) &&
+                (columnaNumero === localidad.columna)
+            );
+
+        if (!localidadEncontrada.estaOcupada) {
+            console.log('Localidad no ocupada');
+            return;
+        }
+
+        // cancela la localidad
+        localidadEncontrada.estaOcupada = false;
+        console.log(`${localidadEncontrada.nombreReserva} ha cancelado su reserva`);
+        localidadEncontrada.nombreReserva = undefined;
+        localidadEncontrada.edadReserva = undefined;
+        localidadEncontrada.telefonoReserva = undefined;
+    }
+    // opción 6
+    async consultarLocalidad(rlp) {
+
+        // solicitamos la fila
+        const fila: string = await rlp.questionAsync(
+            '¿Qué fila quieres consultar (0-4)?\n');
+        // validación de la fila
+        const filaNumero = Number(fila);
+        if ((filaNumero < 0) || (filaNumero > 4)) {
+            console.log('No existe la fila');
+            return;
+        }
+
+        // solicitamos la columna
+        const columna: string = await rlp.questionAsync(
+            '¿Butaca (0-9)?\n');
+
+        // validación de la columna
+        const columnaNumero = +columna;
+        if ((columnaNumero < 0) || (columnaNumero > 9)) {
+            console.log('No existe la butaca');
+            return;
+        }
+
+        // buscar la localidad que tenga la fila y la columna introducidas por el usuario
+        const localidadEncontrada =
+            this.localidades.find(localidad =>
+                (filaNumero === localidad.fila) &&
+                (columnaNumero === localidad.columna)
+            );
+        // si la localidad no esta ocupada
+        if(!localidadEncontrada.estaOcupada)    {
+            console.log('Localidad libre');
+            return;            
+        }
+
+        const tipo = obtenerTipo(localidadEncontrada.edadReserva)
+        const precio = obtenerPrecioEntrada(tipo);
+
+        console.log(`Localidad ocupada por ${localidadEncontrada.nombreReserva}, tlf: ${localidadEncontrada.telefonoReserva}, Tipo: ${tipo}, Precio: ${precio}`);        
+    }
+    //opcion 7
+    calcularRecaudacion(){
+        let recaudacion = 0;
+
+        // forEach 
+        this.localidades.forEach(localidad => {
+            // si la localidad está ocupada, entonces calculamos el precio y lo sumamos a la recaudación
+            if(localidad.estaOcupada){
+                const tipo = obtenerTipo(localidad.edadReserva);
+                const precio = obtenerPrecioEntrada(tipo);
+                recaudacion += precio;                
+            }
+        })
+
+        console.log(`Recaudación: ${recaudacion} euros`);        
     }
 }
